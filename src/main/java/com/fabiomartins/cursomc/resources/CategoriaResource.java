@@ -14,8 +14,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fabiomartins.cursomc.domain.Categoria;
 import com.fabiomartins.cursomc.services.CategoriaService;
 
-import javassist.tools.rmi.ObjectNotFoundException;
-
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
@@ -24,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Categoria> listar(@PathVariable Integer id) throws ObjectNotFoundException {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id){
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -40,9 +38,15 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
 		obj.setId(id);
 		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id){
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

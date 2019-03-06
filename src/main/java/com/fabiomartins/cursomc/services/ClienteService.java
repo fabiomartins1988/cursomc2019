@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.fabiomartins.cursomc.domain.Cliente;
 import com.fabiomartins.cursomc.repositories.ClienteRepository;
+import com.fabiomartins.cursomc.services.exceptions.ObjectNotFoundException;
 
-import javassist.tools.rmi.ObjectNotFoundException;
+
 
 
 @Service
@@ -19,7 +20,7 @@ public class ClienteService {
 	
 	
 	
-	public Cliente find(Integer id) throws ObjectNotFoundException {
+	public Cliente find(Integer id){
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
