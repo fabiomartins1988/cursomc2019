@@ -20,7 +20,7 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> listar(@PathVariable Integer id) throws ObjectNotFoundException { //utiliza-se ? porque pode ser qualquer tipo
+	public ResponseEntity<Pedido> listar(@PathVariable Integer id) throws ObjectNotFoundException { //utiliza-se ? porque pode ser qualquer tipo
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}

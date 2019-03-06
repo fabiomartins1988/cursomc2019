@@ -24,7 +24,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> listar(@PathVariable Integer id) throws ObjectNotFoundException { //utiliza-se ? porque pode ser qualquer tipo
+	public ResponseEntity<Categoria> listar(@PathVariable Integer id) throws ObjectNotFoundException {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -37,5 +37,12 @@ public class CategoriaResource {
 		//fornece como argumento da URI
 		
 		return ResponseEntity.created(uri).build(); //gera o codigo 201 http (created)
+	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 }
