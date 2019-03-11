@@ -1,5 +1,6 @@
 package com.fabiomartins.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fabiomartins.cursomc.domain.Cliente;
 import com.fabiomartins.cursomc.dto.ClienteDTO;
+import com.fabiomartins.cursomc.dto.ClienteNewDTO;
 import com.fabiomartins.cursomc.services.ClienteService;
 
 @RestController
@@ -30,6 +33,16 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> listar(@PathVariable Integer id){ //utiliza-se ? porque pode ser qualquer tipo
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){ //@Valid objetoDto validado antes de continuar
+		Cliente obj = service.fromDTO(objDto);
+		obj = service.insert(obj);  //Cod Status HTTP 201 novo recurso inserido com  sucesso
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		//fornece como argumento da URI
+		
+		return ResponseEntity.created(uri).build(); //gera o codigo 201 http (created)
 	}
 		
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
