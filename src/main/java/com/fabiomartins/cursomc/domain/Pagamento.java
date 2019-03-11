@@ -12,9 +12,11 @@ import javax.persistence.OneToOne;
 
 import com.fabiomartins.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable{
 	//abstract aqui garante que nunca vou instanciar objeto tipo pagamento -- Sendo obrigado a instanciar por alguma sublcasse
 	private static final long serialVersionUID = 1L;
