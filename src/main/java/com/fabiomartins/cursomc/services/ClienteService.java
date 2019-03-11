@@ -17,7 +17,6 @@ import com.fabiomartins.cursomc.domain.Endereco;
 import com.fabiomartins.cursomc.domain.enums.TipoCliente;
 import com.fabiomartins.cursomc.dto.ClienteDTO;
 import com.fabiomartins.cursomc.dto.ClienteNewDTO;
-import com.fabiomartins.cursomc.repositories.CidadeRepository;
 import com.fabiomartins.cursomc.repositories.ClienteRepository;
 import com.fabiomartins.cursomc.repositories.EnderecoRepository;
 import com.fabiomartins.cursomc.services.exceptions.DataIntegrityExcpetion;
@@ -31,9 +30,6 @@ public class ClienteService {
 	
 	@Autowired //instanciada automaticamente injecao de dependencia ou inversão de controle  
 	private ClienteRepository repo;
-	
-	@Autowired
-	private CidadeRepository cidadeRepository;
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
